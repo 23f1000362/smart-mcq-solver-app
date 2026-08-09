@@ -266,38 +266,6 @@ with right:
         conf = float(probs[best])
         bg, line, ink, dot, label = tier(conf)
 
-        st.markdown(
-            "<div style='font-weight:600;font-size:1.05rem;margin:0 0 8px'>Prediction</div>",
-            unsafe_allow_html=True,
-        )
-
-        # answer on the left, confidence on the right
-        st.markdown(
-            f"<div style='background:{bg};color:{ink};border:1px solid {line};"
-            f"border-radius:8px;padding:14px 16px;display:flex;align-items:center;"
-            f"justify-content:space-between;gap:16px'>"
-            f"<div>"
-            f"<div style='font-size:.75rem;opacity:.8;letter-spacing:.04em'>{label}</div>"
-            f"<div style='font-size:1.45rem;font-weight:700;line-height:1.25'>"
-            f"{OPTS[best]}) {html.escape(opts[OPTS[best]])}</div>"
-            f"</div>"
-            f"<div style='text-align:right;flex-shrink:0'>"
-            f"<div style='font-size:.75rem;opacity:.8;letter-spacing:.04em'>CONFIDENCE</div>"
-            f"<div style='font-size:1.45rem;font-weight:700;line-height:1.25'>"
-            f"<span style='color:{dot}'>&#9679;</span> {conf * 100:.1f}%</div>"
-            f"</div>"
-            f"</div>",
-            unsafe_allow_html=True,
-        )
-
-        st.markdown(
-            f"<div style='margin:14px 0 8px'>"
-            f"<span style='font-weight:600'>Top 3</span>"
-            f"<span style='opacity:.65;margin-left:10px;letter-spacing:.08em'>"
-            f"{' &bull; '.join(OPTS[i] for i in top3)}</span></div>",
-            unsafe_allow_html=True,
-        )
-
         # option on the left, percentage on the right, bar below
         bars = []
         for rank, i in enumerate(order):
@@ -315,7 +283,33 @@ with right:
                 f"height:9px;border-radius:5px'></div></div>"
                 f"</div>"
             )
-        st.markdown("".join(bars), unsafe_allow_html=True)
 
-        st.caption(f"inference took {result['elapsed'] * 1000:.0f} ms on CPU")
+        # the whole panel is one block so the negative margin lifts all of it
+        st.markdown(
+            f"<div style='margin-top:-52px'>"
+            f"<div style='font-weight:600;font-size:1.05rem;margin:0 0 8px'>Prediction</div>"
+            f"<div style='background:{bg};color:{ink};border:1px solid {line};"
+            f"border-radius:8px;padding:14px 16px;display:flex;align-items:center;"
+            f"justify-content:space-between;gap:16px'>"
+            f"<div>"
+            f"<div style='font-size:.75rem;opacity:.8;letter-spacing:.04em'>{label}</div>"
+            f"<div style='font-size:1.45rem;font-weight:700;line-height:1.25'>"
+            f"{OPTS[best]}) {html.escape(opts[OPTS[best]])}</div>"
+            f"</div>"
+            f"<div style='text-align:right;flex-shrink:0'>"
+            f"<div style='font-size:.75rem;opacity:.8;letter-spacing:.04em'>CONFIDENCE</div>"
+            f"<div style='font-size:1.45rem;font-weight:700;line-height:1.25'>"
+            f"<span style='color:{dot}'>&#9679;</span> {conf * 100:.1f}%</div>"
+            f"</div>"
+            f"</div>"
+            f"<div style='margin:14px 0 8px'>"
+            f"<span style='font-weight:600'>Top 3</span>"
+            f"<span style='opacity:.65;margin-left:10px;letter-spacing:.08em'>"
+            f"{' &bull; '.join(OPTS[i] for i in top3)}</span></div>"
+            f"{''.join(bars)}"
+            f"<div style='opacity:.6;font-size:.8rem'>"
+            f"inference took {result['elapsed'] * 1000:.0f} ms on CPU</div>"
+            f"</div>",
+            unsafe_allow_html=True,
+        )
 
