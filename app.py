@@ -192,15 +192,9 @@ except Exception as e:
     st.exception(e)
     st.stop()
 
-# title and subtitle share one line so the form starts higher
 st.markdown(
-    f"<div style='margin:0 0 6px;display:flex;align-items:baseline;gap:12px;"
-    f"flex-wrap:wrap'>"
-    f"<span style='font-size:1.7rem;font-weight:700;color:{TITLE_BLUE}'>"
-    f"Smart MCQ Solver</span>"
-    f"<span style='opacity:.7;font-size:.85rem'>"
-    f"Fine-tuned RoBERTa + LoRA - ranks all five options and returns the top 3"
-    f"</span></div>",
+    f"<h1 style='margin:0 0 10px;font-size:2.6rem;color:{TITLE_BLUE}'>"
+    f"Smart MCQ Solver</h1>",
     unsafe_allow_html=True,
 )
 
