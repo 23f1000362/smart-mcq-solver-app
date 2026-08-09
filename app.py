@@ -39,7 +39,7 @@ st.set_page_config(page_title="Smart MCQ Solver", page_icon="A", layout="wide")
 st.markdown(
     """
 <style>
-div.block-container {padding-top: 2.5rem; padding-bottom: 1rem;}
+div.block-container {padding-top: 2rem; padding-bottom: 1rem;}
 div[data-testid="stVerticalBlock"] {gap: 0.55rem;}
 div[data-testid="stHorizontalBlock"] {gap: 0.7rem;}
 div[data-testid="stWidgetLabel"] p {font-size: 0.85rem; margin-bottom: 0.15rem;}
