@@ -39,13 +39,13 @@ st.set_page_config(page_title="Smart MCQ Solver", page_icon="A", layout="wide")
 st.markdown(
     """
 <style>
-div.block-container {padding-top: 2rem; padding-bottom: 1rem;}
-div[data-testid="stVerticalBlock"] {gap: 0.55rem;}
+div.block-container {padding-top: 2rem; padding-bottom: 0.25rem;}
+div[data-testid="stVerticalBlock"] {gap: 0.45rem;}
 div[data-testid="stHorizontalBlock"] {gap: 0.7rem;}
-div[data-testid="stWidgetLabel"] p {font-size: 0.85rem; margin-bottom: 0.15rem;}
-.stTextArea textarea {height: 60px; min-height: 60px;}
-.stTextInput input {height: 38px;}
-.stButton button {height: 50px; font-size: 1rem; font-weight: 600;}
+div[data-testid="stWidgetLabel"] p {font-size: 0.82rem; margin-bottom: 0.1rem;}
+.stTextArea textarea {height: 52px; min-height: 52px;}
+.stTextInput input {height: 34px;}
+.stButton button {height: 48px; font-size: 1rem; font-weight: 600;}
 iframe[title="streamlit.components.v1.html"] {display: block; height: 0;}
 </style>
 """,
@@ -192,10 +192,15 @@ except Exception as e:
     st.exception(e)
     st.stop()
 
+# title and subtitle share one line so the form starts higher
 st.markdown(
-    f"<h2 style='margin:0;color:{TITLE_BLUE}'>Smart MCQ Solver</h2>"
-    f"<div style='opacity:.7;font-size:.85rem;margin:2px 0 10px'>"
-    f"Fine-tuned RoBERTa + LoRA - ranks all five options and returns the top 3</div>",
+    f"<div style='margin:0 0 6px;display:flex;align-items:baseline;gap:12px;"
+    f"flex-wrap:wrap'>"
+    f"<span style='font-size:1.7rem;font-weight:700;color:{TITLE_BLUE}'>"
+    f"Smart MCQ Solver</span>"
+    f"<span style='opacity:.7;font-size:.85rem'>"
+    f"Fine-tuned RoBERTa + LoRA - ranks all five options and returns the top 3"
+    f"</span></div>",
     unsafe_allow_html=True,
 )
 
@@ -213,7 +218,7 @@ with left:
         with cols[i % 3]:
             st.text_input(f"Option {letter}", key=letter)
 
-    st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
+    st.markdown("<div style='height:4px'></div>", unsafe_allow_html=True)
     pad_l, act, pad_r = st.columns([1, 1.6, 1])
     with act:
         go = st.button("Predict", type="primary", use_container_width=True,
