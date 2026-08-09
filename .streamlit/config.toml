@@ -1,0 +1,18 @@
+[theme]
+primaryColor = "#1c5cab"
+
+[theme.light]
+primaryColor = "#1c5cab"
+
+[theme.dark]
+primaryColor = "#3987e5"
+
+[server]
+# stops the file watcher logging a torchvision error for every transformers module
+fileWatcherType = "none"
+
+[browser]
+gatherUsageStats = false
+
+[logger]
+level = "warning"

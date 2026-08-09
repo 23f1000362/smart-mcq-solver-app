@@ -1,0 +1,21 @@
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# virtual environments
+venv/
+.venv/
+env/
+
+# streamlit secrets, never commit this
+.streamlit/secrets.toml
+
+# editors and os files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# logs
+*.log
