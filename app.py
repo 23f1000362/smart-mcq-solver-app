@@ -35,17 +35,13 @@ torch.set_grad_enabled(False)
 
 st.set_page_config(page_title="Smart MCQ Solver", page_icon="A", layout="wide")
 
-# tighter spacing so the whole form and the button fit without scrolling
+# less padding so all five options fit without scrolling
 st.markdown(
     """
 <style>
-div.block-container {padding-top: 4.5rem; padding-bottom: 0.25rem;}
-div[data-testid="stVerticalBlock"] {gap: 0.45rem;}
-div[data-testid="stHorizontalBlock"] {gap: 0.7rem;}
-div[data-testid="stWidgetLabel"] p {font-size: 0.82rem; margin-bottom: 0.1rem;}
-.stTextArea textarea {height: 52px; min-height: 52px;}
-.stTextInput input {height: 34px;}
-.stButton button {height: 48px; font-size: 1rem; font-weight: 600;}
+div.block-container {padding-top: 2rem; padding-bottom: 1rem;}
+.stTextArea textarea {height: 68px; min-height: 68px;}
+.stButton button {height: 52px; font-size: 1rem; font-weight: 600;}
 iframe[title="streamlit.components.v1.html"] {display: block; height: 0;}
 </style>
 """,
@@ -193,8 +189,9 @@ except Exception as e:
     st.stop()
 
 st.markdown(
-    f"<h1 style='margin:0 0 10px;font-size:2.6rem;color:{TITLE_BLUE}'>"
-    f"Smart MCQ Solver</h1>",
+    f"<h2 style='margin:0;color:{TITLE_BLUE}'>Smart MCQ Solver</h2>"
+    f"<div style='opacity:.7;font-size:.85rem;margin:2px 0 10px'>"
+    f"Fine-tuned RoBERTa + LoRA - ranks all five options and returns the top 3</div>",
     unsafe_allow_html=True,
 )
 
@@ -212,7 +209,6 @@ with left:
         with cols[i % 3]:
             st.text_input(f"Option {letter}", key=letter)
 
-    st.markdown("<div style='height:4px'></div>", unsafe_allow_html=True)
     pad_l, act, pad_r = st.columns([1, 1.6, 1])
     with act:
         go = st.button("Predict", type="primary", use_container_width=True,
