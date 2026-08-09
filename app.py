@@ -39,8 +39,9 @@ st.set_page_config(page_title="Smart MCQ Solver", page_icon="A", layout="wide")
 st.markdown(
     """
 <style>
-div.block-container {padding-top: 2rem; padding-bottom: 1rem;}
+div.block-container {padding-top: 1.5rem; padding-bottom: 1rem;}
 .stTextArea textarea {height: 68px; min-height: 68px;}
+.stTextInput input {height: 38px;}
 .stButton button {height: 52px; font-size: 1rem; font-weight: 600;}
 iframe[title="streamlit.components.v1.html"] {display: block; height: 0;}
 </style>
@@ -209,8 +210,10 @@ with left:
         with cols[i % 3]:
             st.text_input(f"Option {letter}", key=letter)
 
-    pad_l, act, pad_r = st.columns([1, 1.6, 1])
-    with act:
+    # option E leaves a gap next to it, so the button sits there instead of
+    # on a row of its own. saves a row of height on shorter screens
+    with cols[2]:
+        st.markdown("<div style='height:26px'></div>", unsafe_allow_html=True)
         go = st.button("Predict", type="primary", use_container_width=True,
                        icon=":material/search:")
 
