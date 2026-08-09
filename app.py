@@ -43,6 +43,9 @@ div.block-container {padding-top: 2rem; padding-bottom: 1rem;}
 .stTextArea textarea {height: 68px; min-height: 68px;}
 .stButton button {height: 52px; font-size: 1rem; font-weight: 600;}
 iframe[title="streamlit.components.v1.html"] {display: block; height: 0;}
+/* lifts the results column, matched by the marker it contains */
+div[data-testid="stColumn"]:has(#lift) {margin-top: -52px;}
+div[data-testid="stElementContainer"]:has(#lift) {display: none;}
 </style>
 """,
     unsafe_allow_html=True,
@@ -284,9 +287,10 @@ with right:
                 f"</div>"
             )
 
-        # the whole panel is one block so the negative margin lifts all of it
+        # marker the css above uses to find and lift this column
+        st.markdown("<span id='lift'></span>", unsafe_allow_html=True)
+
         st.markdown(
-            f"<div style='margin-top:-52px'>"
             f"<div style='font-weight:600;font-size:1.05rem;margin:0 0 8px'>Prediction</div>"
             f"<div style='background:{bg};color:{ink};border:1px solid {line};"
             f"border-radius:8px;padding:14px 16px;display:flex;align-items:center;"
