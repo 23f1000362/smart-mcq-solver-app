@@ -1,0 +1,65 @@
+name: Streamlit Keep Alive
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+jobs:
+  keep-alive:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Playwright
+        run: |
+          pip install playwright
+          playwright install chromium --with-deps
+
+      - name: Open Streamlit app
+        env:
+          STREAMLIT_URL: ${{ secrets.STREAMLIT_URL }}
+        run: |
+          python - <<'PY'
+          import asyncio
+          import os
+          from playwright.async_api import async_playwright
+
+          async def main():
+              url = os.environ["STREAMLIT_URL"]
+
+              async with async_playwright() as p:
+                  browser = await p.chromium.launch()
+                  page = await browser.new_page()
+
+                  print("Opening:", url)
+
+                  await page.goto(
+                      url,
+                      wait_until="domcontentloaded",
+                      timeout=120000
+                  )
+
+                  await page.wait_for_timeout(5000)
+
+                  wake = page.get_by_role(
+                      "button",
+                      name="Yes, get this app back up!"
+                  )
+
+                  if await wake.count() > 0:
+                      print("App was sleeping. Waking it...")
+                      await wake.click()
+                      await page.wait_for_timeout(90000)
+                      print("Wake-up completed.")
+                  else:
+                      print("App appears to be awake.")
+
+                  await browser.close()
+
+          asyncio.run(main())
+          PY
