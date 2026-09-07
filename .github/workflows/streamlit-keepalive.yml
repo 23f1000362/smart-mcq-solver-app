@@ -2,7 +2,7 @@ name: Streamlit Keep Alive
 
 on:
   schedule:
-    - cron: "25,45 * * * *"
+    - cron: "*/5 * * * *"
   workflow_dispatch:
 
 jobs:
